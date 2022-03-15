@@ -31,6 +31,20 @@ Connexion(){
 }
 
 
+//Ajouter des utilisateurs
+addUser(String uid,Map<String,dynamic>map){
+  fire_user.doc(uid).set(map);
+
+}
+
+
+//Modifier les informations d'un utilisateur
+  updatedUser(String uid,Map<String,dynamic>map){
+    fire_user.doc(uid).update(map);
+
+  }
+
+
 
 
 

@@ -100,7 +100,7 @@ class registerState extends State<register>{
             });
 
           },
-          obscureText: true,
+
           decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
