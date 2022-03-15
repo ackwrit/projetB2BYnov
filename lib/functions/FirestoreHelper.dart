@@ -34,7 +34,8 @@ Future Incription(String mail,String password,String nom, String prenom) async {
 
 //Pour la connexion
 
-Connexion(){
+Future Connexion(String mail, String password) async {
+  UserCredential resultat = await auth.signInWithEmailAndPassword(email: mail, password: password);
 
 }
 

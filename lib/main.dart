@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projetclassb2b/Model/Utilisateur.dart';
+import 'package:projetclassb2b/functions/FirestoreHelper.dart';
 import 'package:projetclassb2b/register.dart';
 
 void main() async{
@@ -39,7 +43,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   double slider = 5.5;
-  Utilisateur user = Utilisateur.vide();
+ late String mail;
+ late String password;
 
   void _incrementCounter() {
     setState(() {
@@ -73,6 +78,43 @@ class _MyHomePageState extends State<MyHomePage> {
 
     );
   }
+  PopUp(){
+   showDialog(
+       context: context,
+       builder: (context){
+         if(Platform.isIOS){
+           return CupertinoAlertDialog(
+             title: Text("Erreur"),
+             actions: [
+               ElevatedButton(
+                   onPressed: (){
+                     Navigator.pop(context);
+                   },
+                   child: Text("Ok")
+               )
+
+             ],
+           );
+         }
+         else
+           {
+             return AlertDialog(
+               title: Text("Erreur"),
+               actions: [
+                 ElevatedButton(
+                     onPressed: (){
+                       Navigator.pop(context);
+
+                     },
+                     child: Text("Ok")
+                 )
+
+               ],
+             );
+           }
+       }
+   );
+  }
   Widget bodyPage(){
     return Column(
       children: [
@@ -93,6 +135,11 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         //Entrer une adresse mail
         TextField(
+          onChanged: (value){
+            setState(() {
+              mail = value;
+            });
+          },
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
@@ -108,6 +155,11 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         //Entrer un mot de passe
         TextField(
+          onChanged: (value){
+            setState(() {
+              password = value;
+            });
+          },
           obscureText: true,
           decoration: InputDecoration(
               filled: true,
@@ -128,7 +180,13 @@ class _MyHomePageState extends State<MyHomePage> {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
           ),
             onPressed: (){
-              print("Je em suis connecté");
+              print("Je me suis connecté");
+              FirestoreHelper().Connexion(mail, password).then((value){
+                print("Connexion réussi");
+              }).catchError((onError){
+                print("Connexion erroné");
+                PopUp();
+              });
             },
             child: Text("Connexion")
         ),
