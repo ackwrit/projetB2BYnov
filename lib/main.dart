@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projetclassb2b/Model/Utilisateur.dart';
+import 'package:projetclassb2b/dashboard.dart';
 import 'package:projetclassb2b/functions/FirestoreHelper.dart';
 import 'package:projetclassb2b/register.dart';
 
@@ -183,6 +184,13 @@ class _MyHomePageState extends State<MyHomePage> {
               print("Je me suis connecté");
               FirestoreHelper().Connexion(mail, password).then((value){
                 print("Connexion réussi");
+
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      return dashboard();
+                    }
+                ));
+
               }).catchError((onError){
                 print("Connexion erroné");
                 PopUp();
