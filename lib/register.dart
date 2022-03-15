@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projetclassb2b/functions/FirestoreHelper.dart';
 
 class register extends StatefulWidget{
   @override
@@ -10,6 +11,10 @@ class register extends StatefulWidget{
 }
 
 class registerState extends State<register>{
+  String mail="";
+  late String password;
+  late String nom;
+  late String prenom;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -32,6 +37,12 @@ class registerState extends State<register>{
     return Column(
       children: [
         TextField(
+          onChanged: (value){
+            setState(() {
+              mail = value;
+            });
+
+          },
 
           decoration: InputDecoration(
               filled: true,
@@ -44,6 +55,13 @@ class registerState extends State<register>{
         ),
         SizedBox(height: 10,),
         TextField(
+
+          onChanged: (value){
+            setState(() {
+              password = value;
+            });
+
+          },
           obscureText: true,
           decoration: InputDecoration(
               filled: true,
@@ -57,6 +75,13 @@ class registerState extends State<register>{
         SizedBox(height: 10,),
         TextField(
 
+          onChanged: (value){
+            setState(() {
+              prenom = value;
+            });
+
+          },
+
           decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
@@ -68,6 +93,13 @@ class registerState extends State<register>{
         ),
         SizedBox(height: 10,),
         TextField(
+
+          onChanged: (value){
+            setState(() {
+              nom = value;
+            });
+
+          },
           obscureText: true,
           decoration: InputDecoration(
               filled: true,
@@ -85,6 +117,7 @@ class registerState extends State<register>{
             ),
             onPressed: (){
               print("Je me suis inscris");
+              FirestoreHelper().Incription(mail, password, nom, prenom);
             },
             child: Text("Inscription")
         ),

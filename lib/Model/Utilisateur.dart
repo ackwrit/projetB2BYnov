@@ -20,6 +20,9 @@ Utilisateur(DocumentSnapshot snapshot){
   Map<String,dynamic> map = snapshot.data() as Map<String,dynamic>;
   nom = map["NOM"];
   prenom = map["PRENOM"];
+  mail = map["MAIL"];
+  telephone = map["TELEPHONE"];
+
 
 }
 
