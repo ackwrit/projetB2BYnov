@@ -38,12 +38,34 @@ class myDrawerState extends State<myDrawer>{
               actions: [
                 ElevatedButton(
                     onPressed: (){
+                      //Stocker dans la base de donnée
+                      FirestoreHelper().stockageImage(nameFile!, bytesFile!).then((String url){
+                        setState(() {
+                          //Récupérer le lien  dans la base donnée
+                          urlFile = url;
+                        });
+                        //Mettre à jour les infos de l'utilisateur
+                        Map<String,dynamic> map = {
+                          "AVATAR": urlFile
+                        };
+                        FirestoreHelper().updatedUser(myProfil.id, map);
+                        Navigator.pop(context);
+
+
+
+                      });
+
+
+
+
+
 
                     },
                     child: Text("Enregistrement")
                 ),
                 ElevatedButton(
                     onPressed: (){
+                      Navigator.pop(context);
 
                     },
                     child: Text("Annuler"),

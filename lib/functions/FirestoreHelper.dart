@@ -1,13 +1,17 @@
 
 
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:projetclassb2b/Model/Utilisateur.dart';
 
 class FirestoreHelper {
   //Attributs
   final auth = FirebaseAuth.instance;
   final fire_user = FirebaseFirestore.instance.collection("Utilisateurs");
+  final fireStorage = FirebaseStorage.instance;
 
 
 
@@ -62,6 +66,14 @@ addUser(String uid,Map<String,dynamic>map){
 Future <Utilisateur> getUtilisateur(String uid) async {
     DocumentSnapshot  snapshot = await fire_user.doc(uid).get();
     return Utilisateur(snapshot);
+
+}
+
+Future <String> stockageImage(String nameFile,Uint8List datas) async{
+  TaskSnapshot snapshot = await fireStorage.ref("image/$nameFile").putData(datas);
+  String urlChemin = await snapshot.ref.getDownloadURL();
+  return urlChemin;
+
 
 }
 

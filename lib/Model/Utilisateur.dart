@@ -22,6 +22,7 @@ Utilisateur(DocumentSnapshot snapshot){
   prenom = map["PRENOM"];
   mail = map["MAIL"];
   telephone = map["TELEPHONE"];
+  avatar = map["AVATAR"];
 
 
 }
