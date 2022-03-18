@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:projetclassb2b/Model/Utilisateur.dart';
@@ -15,8 +17,27 @@ class myDrawer extends StatefulWidget{
 class myDrawerState extends State<myDrawer>{
   //Varibale
   late Utilisateur myProfil;
+  String? nameFile;
+  String? urlFile;
+  Uint8List? bytesFile;
 
   //Méthode
+  popImage(){
+    return showDialog(
+      barrierDismissible: false,
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            title: Text("Souhaitez enregister cette image ? "),
+            content: Image.memory(bytesFile!),
+            actions: [
+              Text("Annuler"),
+              Text("Enregistrement")
+            ],
+          );
+        }
+    );
+  }
 
 
   @override
@@ -54,12 +75,18 @@ class myDrawerState extends State<myDrawer>{
                   )
               ),
             ),
-            onTap: (){
+            onTap: () async{
               print("j'ai l'image cliquable");
-              FilePicker.platform.pickFiles(
+              FilePickerResult? resultat = await FilePicker.platform.pickFiles(
                 withData: true,
                 type: FileType.image,
               );
+              if(resultat == null){
+                //Affichage de l'image
+                nameFile = resultat!.files.first.name;
+                bytesFile = resultat!.files.first.bytes;
+                popImage();
+              }
             },
           ),
 
