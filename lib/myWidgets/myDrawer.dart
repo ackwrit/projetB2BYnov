@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:projetclassb2b/Model/Utilisateur.dart';
 import 'package:projetclassb2b/functions/FirestoreHelper.dart';
@@ -41,17 +42,27 @@ class myDrawerState extends State<myDrawer>{
       child: Column(
         children: [
           SizedBox(height: 100,),
-          Container(
-            height: 150,
-            width: 150,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: (myProfil.avatar == null)?NetworkImage("https://voitures.com/wp-content/uploads/2017/06/Kodiaq_079.jpg.jpg"):NetworkImage(myProfil.avatar!)
-              )
+          InkWell(
+            child: Container(
+              height: 150,
+              width: 150,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: (myProfil.avatar == null)?NetworkImage("https://voitures.com/wp-content/uploads/2017/06/Kodiaq_079.jpg.jpg"):NetworkImage(myProfil.avatar!)
+                  )
+              ),
             ),
+            onTap: (){
+              print("j'ai l'image cliquable");
+              FilePicker.platform.pickFiles(
+                withData: true,
+                type: FileType.image,
+              );
+            },
           ),
+
           SizedBox(height: 20,),
           Text("${myProfil.prenom} ${myProfil.nom}")
         ],
