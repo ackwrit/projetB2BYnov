@@ -45,7 +45,7 @@ class detailState extends State<detail>{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.phone_android),
-            //Text(widget.user.telephone)
+            Text(widget.user.telephone!)
           ],
         ),
 

@@ -19,6 +19,7 @@ class dashboardState extends State<dashboard>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      drawer: Text("Je suis un drawer"),
       appBar: AppBar(
         title: Text("Mon application"),
       ),
