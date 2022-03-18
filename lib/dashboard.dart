@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:projetclassb2b/Model/Utilisateur.dart';
 import 'package:projetclassb2b/detail.dart';
 import 'package:projetclassb2b/functions/FirestoreHelper.dart';
+import 'package:projetclassb2b/myWidgets/myDrawer.dart';
 
 class dashboard extends StatefulWidget{
   @override
@@ -19,7 +20,7 @@ class dashboardState extends State<dashboard>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      drawer: Text("Je suis un drawer"),
+      drawer: myDrawer(),
       appBar: AppBar(
         title: Text("Mon application"),
       ),
