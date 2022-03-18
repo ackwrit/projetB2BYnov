@@ -21,29 +21,41 @@ class myDrawerState extends State<myDrawer>{
   String? urlFile;
   Uint8List? bytesFile;
 
-  //Méthode
-  popImage(){
-    return showDialog(
-      barrierDismissible: false,
-        context: context,
-        builder: (context){
-          return AlertDialog(
-            title: Text("Souhaitez enregister cette image ? "),
-            content: Image.memory(bytesFile!),
-            actions: [
-              Text("Annuler"),
-              Text("Enregistrement")
-            ],
-          );
-        }
-    );
-  }
-
-
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
 
+    // TODO: implement build
+    //Méthode
+    popImage(){
+      print("afficher popUp");
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context){
+            return AlertDialog(
+              title: Text("Souhaitez enregister cette image ? "),
+              content: Image.memory(bytesFile!,width: 250,height: 250,),
+              actions: [
+                ElevatedButton(
+                    onPressed: (){
+
+                    },
+                    child: Text("Enregistrement")
+                ),
+                ElevatedButton(
+                    onPressed: (){
+
+                    },
+                    child: Text("Annuler"),
+                ),
+
+
+
+              ],
+            );
+          }
+      );
+    }
 
     //Construire mon Utilsateur
     FirestoreHelper().getIdentifiant().then((String monId){
@@ -75,18 +87,24 @@ class myDrawerState extends State<myDrawer>{
                   )
               ),
             ),
-            onTap: () async{
+            onTap: () async {
               print("j'ai l'image cliquable");
               FilePickerResult? resultat = await FilePicker.platform.pickFiles(
                 withData: true,
                 type: FileType.image,
               );
-              if(resultat == null){
+
+              if(resultat != null){
+                setState(() {
+                  nameFile = resultat.files.first.name;
+                  bytesFile = resultat.files.first.bytes;
+
+                });
                 //Affichage de l'image
-                nameFile = resultat!.files.first.name;
-                bytesFile = resultat!.files.first.bytes;
                 popImage();
+
               }
+
             },
           ),
 
